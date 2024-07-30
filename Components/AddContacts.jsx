@@ -8,9 +8,7 @@ export default function AddContacts({ navigation }) {
 
   const handleSave = () => {
     if (name && phone) {
-     
       Alert.alert('Contact Saved', `Name: ${name}, Phone: ${phone}`);
-     
       setName('');
       setPhone('');
      

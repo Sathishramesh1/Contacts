@@ -36,13 +36,40 @@ const ContactsProvider = ({ children }) => {
 
 export default function App() {
 
+
   
   return (
     <ContactsProvider>
     <NavigationContainer>
     <Stack.Navigator initialRouteName="Home"
     screenOptions={{
-    headerShown: false
+    headerShown: false,
+    transitionSpec: {
+              open: { animation: 'spring', config: { stiffness: 1000, damping: 500 } },
+              close: { animation: 'timing', config: { duration: 300 } },
+            },
+            cardStyleInterpolator: ({ current, next, layouts }) => {
+              return {
+                cardStyle: {
+                  opacity: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              };
+            },
+            headerStyleInterpolator: ({ current, next, layouts }) => {
+              return {
+                headerStyle: {
+                  opacity: current.progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [0, 1],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              };
+            },
   }}
     >
         <Stack.Screen
@@ -55,7 +82,8 @@ export default function App() {
          <Stack.Screen name="Search"
          component={SearchPage}
          options={({ route, navigation }) => {
-              const { query, setQuery } = React.useContext(ContactsContext);
+          
+          const { query, setQuery } = React.useContext(ContactsContext);
 
               return {
                 headerShown: true,
@@ -113,13 +141,6 @@ const styles=StyleSheet.create({
   headerTitleStyle: {
     color: '#fff',
   },
-  // input: {
-  //   height: 40,
-  //   borderColor: 'gray',
-  //   borderWidth: 1,
-  //   // marginBottom: 15,
-  //   paddingHorizontal: 10,
-  //   color: 'white',
-  // },
+
 
 })

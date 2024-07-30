@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Button } from 'react-native';
 import React, { useContext } from 'react';
 import { ContactsContext } from './App';
 import { useRoute } from '@react-navigation/native';
@@ -10,6 +10,7 @@ const ContactPage = () => {
   const { contacts } = useContext(ContactsContext);
 
   const contact = contacts.find(contact => contact.login.uuid === id);
+ 
 
   if (!contact) {
     return (
@@ -21,6 +22,8 @@ const ContactPage = () => {
 
   return (
     <View style={styles.container}>
+
+    
 
     <View style={styles.card}></View>
       <Image 
@@ -46,7 +49,7 @@ const ContactPage = () => {
       </View>
 
 
-      <View style={styles.mobileContainer}>
+      {/* <View style={styles.mobileContainer}>
         
         <View style={styles.mobileContainerLeft}>
         <Text>Mobile</Text>
@@ -58,7 +61,51 @@ const ContactPage = () => {
         <FontAwesome5 name="envelope" size={15} color="green" />
         <FontAwesome5 name="video" size={15} color="green" />
         </View>
+      </View> */}
+
+      <View style={styles.whatsAppContainer}>
+        <Text style={styles.text}>WhatsApp</Text>
+
+        <TouchableOpacity>
+        <FontAwesome5 name="whatsapp-square" size={40} color="green" />
+        </TouchableOpacity>
       </View>
+
+      <View style={styles.telegram}>
+        <Text style={styles.text}>Telegram</Text>
+
+        <TouchableOpacity>
+        <FontAwesome5 name="telegram" size={40} color="skyblue" />
+        </TouchableOpacity>
+      </View>
+
+      <TouchableOpacity style={styles.button}>
+      
+        <Text style={styles.history}>History</Text>
+      </TouchableOpacity>
+
+
+      <View style={styles.bottomIconWrapper}>
+
+      <TouchableOpacity style={styles.iconGroup}>
+      <FontAwesome5 name="star" size={20} color="white" />
+      <Text>Favourites</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.iconGroup}>
+      <FontAwesome5 name="pen" size={20} color="white" />
+      <Text>Edit</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.iconGroup}>
+      <FontAwesome5 name="share-alt" size={20} color="white" />
+      <Text>Share</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.iconGroup}>
+      <FontAwesome5 name="ellipsis-v" size={20} color="white" />
+      <Text>More</Text>
+      </TouchableOpacity>
+
+      </View>
+  
     </View>
   );
 }
@@ -78,7 +125,8 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: 'white', 
     fontWeight:'600',
-    textAlign:"center"
+    textAlign:"center",
+   
   },
   image: {
     marginLeft:'auto',
@@ -127,7 +175,56 @@ const styles = StyleSheet.create({
     width:"100%",
     justifyContent:"space-between",
     alignItems:'center'
-  }
+  },
+  whatsAppContainer:{
+    width:"100%",
+    display:'flex',
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"center",
+    marginTop:"10%" ,
+    paddingBottom:"5%",
+    borderBottomColor:"grey",
+    borderBottomWidth:1
+
+  },
+
+  telegram:{
+    width:"100%",
+    display:'flex',
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems:"center",
+    marginTop:"5%" ,
+    borderBottomColor:"grey",
+  },
+  text:{
+    color:'white'
+  },
+   button:{
+    marginTop:"5%",
+    width:"70%",
+    borderColor:"grey",
+    margin:"auto",
+    backgroundColor:"gray",
+   borderRadius:25,
+    padding:8    
+   },
+   history:{
+    textAlign:"center",
+    color:"white"
+
+   },
+   bottomIconWrapper:{
+    display:'flex',
+    flexDirection:"row",
+    justifyContent:"space-between"
+   },
+   iconGroup:{
+    display:'flex',
+    flexDirection:'column',
+    alignItems:'center'
+   }
   
  
 });
