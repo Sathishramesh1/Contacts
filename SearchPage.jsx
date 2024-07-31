@@ -7,9 +7,7 @@ import { useRoute } from '@react-navigation/native';
 
 
 
-
 function ListEmptyComponent(){
-
 return (
   <View style={styles.emptyPageContainer}>
     <Text style={styles.error}>No Result found</Text>
@@ -25,7 +23,8 @@ export default function SearchPage() {
   const { contacts } = useContext(ContactsContext);
 
   const filteredContacts = contacts.filter(contact => {
-    const name = `${contact.name.first || ''} ${contact.name.last || ''}`.toLowerCase();
+    
+    const name = `${contact.name.first || ''}${contact.name.last || ''} `.toLowerCase();
     const phoneNumber = contact.phone || '';
     return name.includes(query.toLowerCase()) || phoneNumber.includes(query);
   });
@@ -36,6 +35,7 @@ export default function SearchPage() {
   return (
     <View style={styles.container}>
       <FlatList
+     contentContainerStyle={filteredContacts.length === 0 ? styles.flatListEmpty : null}
         data={filteredContacts}
         keyExtractor={(item) => item.login.uuid}
         ListEmptyComponent={<ListEmptyComponent></ListEmptyComponent>}
@@ -59,6 +59,7 @@ export default function SearchPage() {
             </View>
           </View>
         )}
+        
       />
     </View>
   );
@@ -67,7 +68,7 @@ export default function SearchPage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    padding: 16,
     backgroundColor: 'black',
   },
   input: {
@@ -97,28 +98,31 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   emptyPageContainer:{
-    
-    display:'flex',
+    flex: 1,  
     justifyContent:'center',
-    alignItems:'center',
-  
+    alignItems:"center",
+    
   },
  error:{
-
   color:'white',
   fontSize:20
+
  },
  image:{
   width:40,
   height:40,
   borderRadius:50,
-  display:'flex',
   justifyContent:'center',
   alignItems:"center",
   
  },
  details:{
   paddingLeft:16
- }
+ },
+
+flatListEmpty: {
+    flex: 1,
+    justifyContent: 'center',
+  },
  
 });

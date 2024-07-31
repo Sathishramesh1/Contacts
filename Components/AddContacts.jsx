@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 
 export default function AddContacts({ navigation }) {
   const [name, setName] = useState('');
@@ -11,7 +12,6 @@ export default function AddContacts({ navigation }) {
       Alert.alert('Contact Saved', `Name: ${name}, Phone: ${phone}`);
       setName('');
       setPhone('');
-     
       navigation.goBack();
     } else {
       Alert.alert('Validation Error', 'Please enter both name and phone number.');
@@ -26,12 +26,19 @@ export default function AddContacts({ navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Add Contact</Text>
+
+       <View style={styles.inputField}>
+      <FontAwesome5 name="user" size={16} color="green" />
       <TextInput
         style={styles.input}
         placeholder="Name"
         value={name}
         onChangeText={setName}
       />
+      </View>
+
+      <View style={styles.inputField}>
+      <FontAwesome5 name="phone" size={15} color="green" style={styles.icon}/>
       <TextInput
         style={styles.input}
         placeholder="Phone Number"
@@ -39,12 +46,18 @@ export default function AddContacts({ navigation }) {
         value={phone}
         onChangeText={setPhone}
       />
-       <TextInput
+
+</View>
+
+<View style={styles.inputField}>
+<FontAwesome5 name="envelope" size={15} color="green" />
+  <TextInput
         style={styles.input}
         placeholder="Email"
         value={phone}
         onChangeText={setEmail}
       />
+      </View>
       <View style={styles.buttonContainer}>
         <Button title="Save" onPress={handleSave} />
         <Button title="Cancel" onPress={handleCancel} color="red" />
@@ -67,14 +80,28 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
-    marginBottom: 15,
-    paddingHorizontal: 10,
+    fontSize:16,
+    
+   
+    // paddingHorizontal: 10,
+    width:"90%"
   },
   buttonContainer: {
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  inputField:{
+    flexDirection:"row",
+    justifyContent:'center',
+    alignItems:"center",
+    borderColor: 'gray',
+    borderWidth: 1,
+    gap:10,
+    marginBottom: 15,
+    
+  },
+  icon: {
+    transform: [{ scaleX: -1 }],
   },
 });

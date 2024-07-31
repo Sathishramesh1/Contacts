@@ -8,7 +8,6 @@ import {
   Text,
   TouchableOpacity,
   useColorScheme,
-  FlatList,
   View,
   Animated,
   Image,
@@ -76,8 +75,6 @@ function Home() {
     navigation.navigate('Search');
   };
 
- 
-
   const handleScroll = Animated.event(
     [{nativeEvent: {contentOffset: {y: scrollY}}}],
     {
@@ -90,7 +87,6 @@ function Home() {
           easing: Easing.ease,
           useNativeDriver: true,
         }).start();
-       
       },
     },
   );
@@ -148,8 +144,8 @@ function Home() {
   };
 
   const headerHeight = scrollY.interpolate({
-    inputRange: [0,60],
-    outputRange: [height/4, 0],
+    inputRange: [0, 60],
+    outputRange: [height / 4, 0],
     extrapolate: 'clamp',
   });
 
@@ -165,7 +161,9 @@ function Home() {
     extrapolate: 'clamp',
   });
 
- 
+
+  const handlePointerEvents = opacity => opacity === 0 ? 'none' : 'auto';
+    
 
   return (
     <SafeAreaView style={[styles.container, backgroundStyle]}>
@@ -203,28 +201,11 @@ function Home() {
         </View>
       </View>
 
-      {/* <View style={styles.scrollBar} >
-      
-      {selected && (
-        <View style={styles.selectedLetter} >
-          <Text style={styles.selectedLetterText}>{selected}</Text>
-        </View>
-      )}
-        {scrollBar.map((ele, i) => (
-          <TouchableOpacity key={i} 
-          onPress={() => handleScrollToLetter(ele)}
-          onPressIn={()=>handleScrollToLetter(ele)}
-          onFocus={()=>handleScrollToLetter(ele)}
-          onLongPresS={()=>handleScrollToLetter(ele)}
-          
-          >
-            <Text style={styles.scrollText}>{ele}</Text>
-          </TouchableOpacity>
-        ))}
-       
-      </View> */}
-
-      <Animated.View style={[styles.scrollBar, {opacity: scrollBarOpacity}]}>
+      <Animated.View style={[styles.scrollBar, {
+        opacity: scrollBarOpacity,
+        }]}
+        pointerEvents={handlePointerEvents(scrollBarOpacity)}
+      >
         {selected && (
           <View style={styles.selectedLetter}>
             <Text style={styles.selectedLetterText}>{selected}</Text>
@@ -307,7 +288,7 @@ const styles = StyleSheet.create({
   navbar: {
     flexDirection: 'row',
     width: '95%',
-    padding:16,
+    padding: 16,
     margin: 'auto',
     marginTop: 10,
   },
@@ -331,6 +312,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
+   
+   
   },
   scrollText: {
     padding: 4,
@@ -372,7 +355,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: 'white',
     padding: 10,
-    paddingLeft:16
+    paddingLeft: 16,
     // borderBottomColor:"grey",
     // borderBottomWidth:1,
   },
@@ -421,19 +404,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'lightblue',
     height: 'auto',
   },
-  logo:{
-    width:80,
-    height:80,
-    backgroundColor:'green',
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-    borderRadius:40  
+  logo: {
+    width: 80,
+    height: 80,
+    backgroundColor: 'green',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 40,
   },
-  logoText:{
-    fontSize:24,
-    fontWeight:"600"
-  }
+  logoText: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
 });
 
 export default Home;
