@@ -8,3 +8,7 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # Add any project specific keep options here:
+
+# Realm Proguard rules
+-keep class io.realm.** { *; }
+-dontwarn io.realm.**

@@ -24,7 +24,7 @@ export default function SearchPage() {
 
   const filteredContacts = contacts.filter(contact => {
     
-    const name = `${contact.name.first || ''}${contact.name.last || ''} `.toLowerCase();
+    const name = `${contact.firstName || ''}${contact.lastName || ''} `.toLowerCase();
     const phoneNumber = contact.phone || '';
     return name.includes(query.toLowerCase()) || phoneNumber.includes(query);
   });
@@ -37,18 +37,18 @@ export default function SearchPage() {
       <FlatList
      contentContainerStyle={filteredContacts.length === 0 ? styles.flatListEmpty : null}
         data={filteredContacts}
-        keyExtractor={(item) => item.login.uuid}
+        keyExtractor={(item) => item._id}
         ListEmptyComponent={<ListEmptyComponent></ListEmptyComponent>}
         renderItem={({ item }) => (
           <View style={styles.listItem}>
 
           <Image 
           style={styles.image}
-            source={{uri:item.picture.thumbnail}}
+            source={{uri:item.profilePicture.thumbnail}}
           />
           <View style={styles.details}>
             <Text style={styles.contactText}>
-              {`${item.name.first || ''} ${item.name.last || ''}`}
+              {`${item.firstName || ''} ${item.lastName || ''}`}
             </Text>
             {item.phone && (
               <Text style={styles.phoneText}>

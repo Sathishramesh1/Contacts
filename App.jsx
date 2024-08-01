@@ -2,15 +2,13 @@
 import { View, Text, AppState, TextInput, StyleSheet } from 'react-native'
 import * as React from 'react';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
-//  import App from './App'
 import Home from './Home'
 import AddContacts from './Components/AddContacts';
-
-
 import { createStackNavigator } from '@react-navigation/stack';
 import SearchPage from './SearchPage';
 import ContactPage from './ContactPage';
-
+import Realm from "realm";
+Realm.flags.THROW_ON_GLOBAL_REALM = true;
 
 const Stack = createStackNavigator();
 
@@ -18,9 +16,7 @@ const Stack = createStackNavigator();
 export const ContactsContext = React.createContext();
 
 const ContactsProvider = ({ children }) => {
-  const [contacts, setContacts] = React.useState([
-    
-    
+  const [contacts, setContacts] = React.useState([    
   ]);
 
   const [query,setQuery]=React.useState('');
@@ -88,6 +84,7 @@ export default function App() {
               return {
                 headerShown: true,
                 headerTitle: () => (
+                 
                   <View style={styles.headerContainer}>
                     <TextInput
                       style={styles.input}
@@ -100,6 +97,7 @@ export default function App() {
                     />
                   </View>
                 ),
+               
                 headerStyle: styles.headerStyle,
                 headerTintColor: '#fff',
                 headerTitleStyle: styles.headerTitleStyle,

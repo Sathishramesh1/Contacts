@@ -3,13 +3,20 @@ import React, { useContext } from 'react';
 import { ContactsContext } from './App';
 import { useRoute } from '@react-navigation/native';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import {Realm} from 'realm'
 
 const ContactPage = () => {
   const route = useRoute();
-  const { id } = route.params;
+  const { contactId } = route.params;
   const { contacts } = useContext(ContactsContext);
 
-  const contact = contacts.find(contact => contact.login.uuid === id);
+  // Convert the string back to ObjectId
+  const objectId = new Realm.BSON.ObjectId(contactId);
+  
+  // console.log(contactId,objectId,"from contact page  ----------- ")
+  // console.log(contacts,"FROM THE CONTACT PAGE -----------")
+ // Find the contact by ObjectId
+ const contact = contacts.find(contact => contact._id.equals(objectId));
  
 
   if (!contact) {
@@ -27,10 +34,10 @@ const ContactPage = () => {
 
     <View style={styles.card}></View>
       <Image 
-        source={{ uri: contact.picture.large }} 
+        source={{ uri: contact.profilePicture.large }} 
         style={styles.image}
       />
-      <Text style={styles.contactText}> {contact.name.first} {contact.name.last}</Text>
+      <Text style={styles.contactText}> {contact.firstName} {contact.lastName}</Text>
       <Text style={styles.contactText}>Phone: {contact.phone}</Text>
       <Text style={styles.contactText}>Email: {contact.email}</Text>
 
